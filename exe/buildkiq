@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require "buildkiq/cli"
+
+Buildkiq::Cli.start
