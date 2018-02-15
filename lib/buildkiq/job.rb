@@ -8,7 +8,7 @@ module Buildkiq
     def initialize(project_name:, environments:, logger: Logger.new(STDOUT))
       @client       = Aws::CodeBuild::Client.new
       @project_name = project_name
-      @environments = environments
+      @environments = normalize_environments(environments)
       @logger       = logger
     end
 
@@ -47,7 +47,7 @@ module Buildkiq
     end
 
     def artifact_upload_success?
-      !fetch_build.phases.select { |v|
+      !fetch_build.phases.select {|v|
         v.phase_type == "UPLOAD_ARTIFACTS" && v.phase_status == "SUCCEEDED"
       }.empty?
     end
@@ -82,6 +82,13 @@ module Buildkiq
             commands:
                - #{cmd}
       EOS
+    end
+
+    def normalize_environments(environments)
+      environments.map do |e|
+        e.merge(type:  'PLAINTEXT',
+                value: (e[:value] || e['value']).to_s)
+      end
     end
   end
 end
