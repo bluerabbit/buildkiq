@@ -25,8 +25,8 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "rubyzip"
   spec.add_runtime_dependency "thor"
 
-  spec.add_development_dependency "bundler", "~> 1.13"
+  spec.add_development_dependency "bundler", "~> 2.1.4"
   spec.add_development_dependency "pry-byebug"
-  spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency "rake", "~> 12.3.3"
   spec.add_development_dependency "rspec", "~> 3.0"
 end
